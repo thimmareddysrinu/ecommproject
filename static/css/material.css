@@ -1,0 +1,14 @@
+.one{
+       background-color:blue;
+       width: fit-content;
+
+}
+.nav-item{
+       list-style-type:none;
+       padding-left: 540px;
+       padding-left:580px; 
+
+}
+.homeitem{
+       align-items: center;
+}

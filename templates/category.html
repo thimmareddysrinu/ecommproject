@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}
+ all products
+{% endblock  %}
+{% block content %}
+ <div class='container ' style="margin-top:60px;">
+  <h3>All Products</h3>
+  {% for cat in allcate %}
+
+  <br>
+   {% for cats in carproducts %}
+    {% endfor %}
+  <h4>{{cat.title}}</h4>
+  <hr>
+  <div class='row'style="color:black; ">
+   {% for p in cat.product_set.all %}
+    <div class='col-4'>
+     <h3><a href="{% url 'ecomapp:productdetail' p.slug %}"style="text-decoration:none">{{p.title}}</a><h3><br>
+    <h3><a href="{% url 'ecomapp:productdetail' p.slug %}"style="text-decoration:none"> <img src={{p.image.url}} alt=''  width=300 height=300></a><h3><br>
+     
+     <h6>price: <strike>Rs.{{p.market_price|intcomma}} </strike >price:Rs.{{p.selling_price|intcomma}}</h6>
+     
+    
+     <a class='btn btn-primary' href="{% url 'ecomapp:addtocart' p.id %}">add to cart </a>
+      
+    
+    <br></br>
+    </div>
+    
+   {% endfor %}
+
+  </div>
+  {% endfor %}
+ </div>
+   
+{% endblock  %}

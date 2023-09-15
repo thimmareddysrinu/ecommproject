@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}checkout{% endblock  %}
+{% block content %}
+   <div class='container'style="margin-top:60px;">
+     <div class='row'>
+      <div class='col-md-8'>
+       <h4>Items in Cart</h4>
+        <form>
+       <table class="table">
+        
+        
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Product</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+           
+            <th>ProductImage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cp in cart.cartproduct_set.all %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ cp.product.title }}</td>
+            <td>{{ cp.rate|intcomma }}</td>
+            <td>{{ cp.quantity}}</td>
+            <td>{{ cp.sub_total|intcomma }}</td>
+            
+            <td>
+              <img
+                style="border-radius: 50%; text-align: center"
+                src="{{cp.product.image.url}}"
+                height="60px"
+                width="120px"
+              />
+            </td>
+          </tr>
+
+          {% endfor %}
+          <tr>
+            <th colspan="4">total</th>
+            <th>{{cart.total|intcomma}}</th>
+            
+            <th><a href="{% url 'ecomapp:mycart' %}" class="btn btn-info">add items</a></th>
+          </tr>
+          
+        </tbody>
+      </table>
+      </form>
+   
+      </div>
+      <div class='col-md-4'>
+         <h4>Checkout From</h4>
+         <form method="POST"  action="">  
+           {% csrf_token %}
+           {{form.as_p}}
+           {% comment %} <button id="rzp-button1">Pay with Razorpay</button> {% endcomment %}
+        <button type='submit' action={% url 'ecomapp:home'%}  class='btn btn-info'>place order</button>
+           
+         </form>
+      </div>
+   
+   
+     </div>
+   
+   </div>
+
+
+
+{% endblock  %}
+
+

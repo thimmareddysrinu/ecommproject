@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% load humanize %}{% block title %} search {% endblock %}
+{% block content %}
+  <div class="container" style="margin-top:60px;">
+    <div class="row">
+        <div class="col-mt-12" style="display:flex:">
+            <h3>Search Results for <span class="text-info">"{{request.GET.keyword}}"</span></h3>
+            <hr>
+            {% for result in results %}
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{result.image.url}}"  alt="" width=250 height=250px >
+                </div>
+                <br>
+                <div class="col-3">
+                    <h4><a href="{% url 'ecomapp:productdetail' result.slug %}">{{result.title}}</a></h4>
+                    <p>{{result.descripitation|truncatewords:50}}</p>
+                    <p>Return Policy: {{result.return_policy}}</p>
+                    <p><h5>price:{{result.selling_price}}</h5></p>
+                    <a href="{% url 'ecomapp:addtocart' result.id %}" class="btn btn-primary">Add To Cart</a>
+                </div>
+                <br>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+ 
+
+
+{% endblock %}

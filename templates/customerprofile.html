@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load humanize%}
+{% block title %}
+  profile
+{% endblock  %}
+{% block content %}
+   <div class='container' style="margin-top:60px;">
+    <div class='row'>
+      <div class='col-md-4'style="top:30;">
+        <h4>profile information<h4><hr>
+            <p style="font-size:20px;"><span class='font-weight-bold'>Username</span>: {{customer.user.username}}</p>
+             <p style="font-size:20px;"><span>Name </span>: {{customer.fullname}}</p>
+             <p style="font-size:20px;"><span>email </span>: {{customer.user.email}}</p>
+             <p style="font-size:20px;"><span>address </span>: {{customer.adress}}</p>
+             <p style="font-size:20px;"><span>Joined on </span>: {{customer.joined_on}}</p>
+
+         
+      </div>
+
+      <div class='col-md-8'>
+       <h4>Order Details<h4><hr>
+       <table class="table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Order ID </th>
+            <th>Amount</th>
+            <th>Ordered on </th>
+            <th>Status</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          {% for ord in orders %}
+           <tr>
+            <td style="font-size:20px;">{{ forloop.counter }}</td>
+            <td style="font-size:20px;"><a href={% url 'ecomapp:idsdeatail' ord.pk %}>{{ord.id }}</a></td>
+            <td style="font-size:20px;">{{ord.total|intcomma }}</td>
+            <td style="font-size:20px;">{{ord.created_at|timesince}}</td>
+            <td style="font-size:20px;">{{ord.order_status }}</td>
+           </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+   </div>   
+   
+{% endblock  %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}
+  {{product.title}}
+{% endblock  %}
+{% block content %}
+ <div class='container bg-body-blue' style="margin-top:60px;">
+    <h4>{{product.title}}</h4>
+    <hr>
+    <div class='row '>
+      <div class='col-md-4 '>
+       <img src="{{product.image.url}}" alt=''style="height:500px;" class="img-fluid" >
+        <div class='row 'style="background-color:skyblue:">
+           {% for pi in product.productimage_set.all %}
+          <div class='col-md-4 p-4'>
+            <a href="{{pi.image.url}}" target="_blank">
+              <img src="{{pi.image.url}}" class="img-fluid" style="height: 100px; object-fit: contain;" alt="">
+            </a>
+
+          </div>
+           {% endfor %}
+        </div> 
+      </div>
+      <div class='col-md-8'>
+       <h4>{{product.title}}</h4>
+       <h6 class=''>Category :{{product.category}}</h6>
+       <h6>price: <strike>Rs.{{product.market_price}} </strike >
+       price:Rs.{{product.selling_price}}</h6>
+      <a class='btn btn-info' href="{% url 'ecomapp:addtocart' product.id %} ">add to cart </a>
+      <br></br>
+      <h6 class=''>viewed By:{{product.view_count}}</h6>
+    
+      <h6 class='text-info'>Warranty :{{product.warranty}}</h6>
+      <h6 class='text-danger' >Return Policy :{{product.return_policy}}</h6>
+      <hr>
+      <p>{{product.descripitation}}</p>
+     </div>
+    </div> 
+ </div>
+   
+   
+{% endblock  %}
